@@ -96,11 +96,7 @@ The first start builds the app inside the container and can take a minute or two
 ### Notes
 
 - **Only the in-app agent uses these variables.** SEO data features need `DATAFORSEO_API_KEY` regardless.
-- **`host.docker.internal`** works out of the box on Docker Desktop (Windows and macOS). On Linux, add this to the `open-seo` service in `compose.yaml`:
-  ```yaml
-  extra_hosts:
-    - "host.docker.internal:host-gateway"
-  ```
+
 - **Your endpoint must be reachable from inside the container.** A proxy bound only to `127.0.0.1` on the host may not be.
 - **Port conflicts:** OpenSEO defaults to port 3001, and many local proxies use it too. That is why the example sets `PORT=3002`.
 - **Model names** differ between endpoints. Use one your endpoint actually lists.
