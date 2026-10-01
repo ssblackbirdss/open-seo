@@ -13,6 +13,8 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+RUN sed -i 's/\r$//' deploy/docker/docker-entrypoint.sh
+
 EXPOSE 3001
 
 # Readiness probe against the unauthenticated setup/health endpoint. The long

@@ -33,6 +33,8 @@ services:
       - VITE_SHOW_DEVTOOLS=false
     ports:
       - "127.0.0.1:${PORT:-3001}:${PORT:-3001}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - open_seo_data:/app/.wrangler
 volumes:

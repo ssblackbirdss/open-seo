@@ -30,9 +30,19 @@ export function buildChatAgentModel(
   apiKey: string,
   modelId?: string,
   reasoningEffort: "max" | "low" = "max",
+  baseURL?: string,
 ): LanguageModelV3 {
   const model = modelId ?? DEFAULT_CHAT_AGENT_MODEL;
-  const openrouter = createOpenRouter({ apiKey });
+  const openrouter = createOpenRouter({
+    apiKey,
+    ...(baseURL ? { baseURL, compatibility: "compatible" as const } : {}),
+  });
+
+  // Custom OpenAI-compatible endpoint (e.g. freellmapi): skip the
+  // OpenRouter-only request fields (usage accounting, reasoning).
+  if (baseURL) {
+    return openrouter(model);
+  }
 
   // MiniMax M3 (env-override path only): `provider.order` prefers Together,
   // then Atlas Cloud (fp8); `zdr: true` restricts routing to Zero-Data-
